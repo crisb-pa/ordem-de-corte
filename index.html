@@ -13,19 +13,24 @@
   .logo span { color: #e8380d; }
   .sub { font-size: 10px; color: #888; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 28px; }
   .card h2 { font-size: 17px; color: #333; margin-bottom: 16px; }
-  input { width: 100%; padding: 11px 14px; border: 2px solid #ddd; border-radius: 8px; font-size: 14px; outline: none; text-transform: uppercase; }
-  input:focus { border-color: #1a56a0; }
-  button { width: 100%; margin-top: 10px; padding: 11px; background: #1a56a0; color: white; border: none; border-radius: 8px; font-size: 15px; font-weight: bold; cursor: pointer; }
-  button:disabled { background: #aaa; cursor: not-allowed; }
+  input[type=text] { width: 100%; padding: 11px 14px; border: 2px solid #ddd; border-radius: 8px; font-size: 14px; outline: none; text-transform: uppercase; margin-top: 8px; }
+  input[type=text]:focus { border-color: #1a56a0; }
+  .grupo-label { font-size: 12px; color: #555; text-align: left; margin-top: 14px; margin-bottom: 6px; font-weight: bold; }
+  .grupo-opcoes { display: flex; gap: 8px; }
+  .grupo-opcoes label { flex: 1; border: 2px solid #ddd; border-radius: 8px; padding: 9px; font-size: 13px; cursor: pointer; text-align: center; color: #555; transition: all 0.2s; }
+  .grupo-opcoes input[type=radio] { display: none; }
+  .grupo-opcoes input[type=radio]:checked + label { border-color: #1a56a0; background: #eef3fb; color: #1a56a0; font-weight: bold; }
+  button.btn-buscar { width: 100%; margin-top: 14px; padding: 11px; background: #1a56a0; color: white; border: none; border-radius: 8px; font-size: 15px; font-weight: bold; cursor: pointer; }
+  button.btn-buscar:disabled { background: #aaa; cursor: not-allowed; }
   .erro { color: #c0392b; font-size: 13px; margin-top: 10px; }
   .doc-area { display: none; background: #f0f2f5; min-height: 100vh; padding: 20px; }
   .acoes { display: flex; gap: 10px; margin-bottom: 16px; justify-content: center; }
-  .acoes button { width: auto; padding: 8px 18px; font-size: 14px; }
+  .acoes button { padding: 8px 18px; border: none; border-radius: 6px; cursor: pointer; font-weight: bold; font-size: 14px; }
   .btn-voltar { background: #eee; color: #333; }
+  .btn-imprimir { background: #1a56a0; color: white; }
   .documento { background: white; max-width: 860px; margin: 0 auto; padding: 28px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); border-radius: 4px; }
   .doc-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 8px; }
   .doc-titulo-area { display: flex; align-items: center; gap: 12px; }
-  .doc-logo { width: 50px; height: 50px; background: #e8380d; border-radius: 6px; display: flex; align-items: center; justify-content: center; color: white; font-weight: 900; font-size: 9px; text-align: center; line-height: 1.3; padding: 4px; }
   .doc-titulo { font-size: 24px; font-weight: 900; color: #1a1a2e; }
   .doc-empresa { font-size: 9px; color: #888; text-transform: uppercase; letter-spacing: 0.5px; }
   .doc-info { display: grid; grid-template-columns: auto auto; gap: 3px 16px; font-size: 11px; }
@@ -61,9 +66,19 @@
     <div class="logo">PELE DE <span>ATLETA</span></div>
     <div class="sub">Vestuário Esportivo e Profissional</div>
     <h2>Gerar Ordem de Corte</h2>
-    <input type="text" id="input-pedido" placeholder="Ex: S202604-028" onkeypress="if(event.key==='Enter') buscar()" />
-    <input type="text" id="input-centro" placeholder="Centro de Produção (ex: PA)" style="width:100%;padding:11px 14px;border:2px solid #ddd;border-radius:8px;font-size:14px;outline:none;text-transform:uppercase;margin-top:8px;box-sizing:border-box;" value="PA" /> 
-   <button id="btn" onclick="buscar()">Buscar Pedido</button>
+
+    <input type="text" id="input-pedido" placeholder="Nº DO PEDIDO (ex: S202604-028)" onkeypress="if(event.key==='Enter') buscar()" />
+    <input type="text" id="input-centro" placeholder="Centro de Produção (ex: PA)" value="PA" />
+
+    <div class="grupo-label">Agrupar por:</div>
+    <div class="grupo-opcoes">
+      <input type="radio" name="agrupamento" id="grupo-cor" value="cor" checked />
+      <label for="grupo-cor">🎨 Cor</label>
+      <input type="radio" name="agrupamento" id="grupo-modelo" value="modelo" />
+      <label for="grupo-modelo">👕 Modelo</label>
+    </div>
+
+    <button class="btn-buscar" id="btn" onclick="buscar()">Buscar Pedido</button>
     <div class="erro" id="erro"></div>
   </div>
 </div>
@@ -71,7 +86,7 @@
 <div class="doc-area" id="tela-doc">
   <div class="acoes">
     <button class="btn-voltar" onclick="voltar()">← Nova Busca</button>
-    <button onclick="window.print()">🖨️ Imprimir / PDF</button>
+    <button class="btn-imprimir" onclick="imprimir()">🖨️ Imprimir / PDF</button>
   </div>
   <div class="documento" id="documento"></div>
 </div>
@@ -80,17 +95,26 @@
 const WEBHOOK = 'https://pele-de-atleta.app.n8n.cloud/webhook/c9879cf2-7fde-4d81-a61c-a042df26b54f';
 const ORDEM = ['1','2','4','6','8','10','12','14','PP','P','M','G','GG','XGG','EXGG','ESPECIAL'];
 
+let dadosAtual = null;
+
 function voltar() {
   document.getElementById('tela-doc').style.display = 'none';
   document.getElementById('tela-busca').style.display = 'flex';
   document.getElementById('input-pedido').value = '';
   document.getElementById('erro').textContent = '';
+  document.title = 'Ordem de Corte — Pele de Atleta';
+  dadosAtual = null;
+}
+
+function imprimir() {
+  window.print();
 }
 
 async function buscar() {
   const pedido = document.getElementById('input-pedido').value.trim().toUpperCase();
-  const centro = 'Corte ' + document.getElementById('input-centro').value.trim().toUpperCase();
   if (!pedido) return;
+  const centro = 'Corte ' + document.getElementById('input-centro').value.trim().toUpperCase();
+  const agrupamento = document.querySelector('input[name="agrupamento"]:checked').value;
   const btn = document.getElementById('btn');
   const erro = document.getElementById('erro');
   btn.disabled = true;
@@ -102,7 +126,8 @@ async function buscar() {
     const data = await res.json();
     const d = Array.isArray(data) ? data[0] : data;
     if (!d?.linhas?.length) throw new Error('Pedido não encontrado');
-    gerarDoc(d,centro);
+    dadosAtual = d;
+    gerarDoc(d, centro, agrupamento);
   } catch(e) {
     erro.textContent = '⚠️ ' + e.message;
   }
@@ -110,20 +135,42 @@ async function buscar() {
   btn.textContent = 'Buscar Pedido';
 }
 
-function gerarDoc(d, centro) {
+function ordenarLinhas(linhas, agrupamento) {
+  return [...linhas].sort((a, b) => {
+    if (agrupamento === 'cor') {
+      if (a.cor < b.cor) return -1;
+      if (a.cor > b.cor) return 1;
+      if (a.referencia < b.referencia) return -1;
+      if (a.referencia > b.referencia) return 1;
+    } else {
+      if (a.referencia < b.referencia) return -1;
+      if (a.referencia > b.referencia) return 1;
+      if (a.cor < b.cor) return -1;
+      if (a.cor > b.cor) return 1;
+    }
+    return 0;
+  });
+}
+
+function gerarDoc(d, centro, agrupamento) {
+  const linhasOrdenadas = ordenarLinhas(d.linhas, agrupamento);
+
   const tamSet = new Set();
-  d.linhas.forEach(l => Object.keys(l.tamanhos).forEach(t => tamSet.add(t)));
+  linhasOrdenadas.forEach(l => Object.keys(l.tamanhos).forEach(t => tamSet.add(t)));
   const tams = ORDEM.filter(t => tamSet.has(t));
   tamSet.forEach(t => { if (!tams.includes(t)) tams.push(t); });
 
   const tots = {};
   tams.forEach(t => tots[t] = 0);
   let totGeral = 0;
-  d.linhas.forEach(l => tams.forEach(t => { tots[t] += (l.tamanhos[t]||0); totGeral += (l.tamanhos[t]||0); }));
+  linhasOrdenadas.forEach(l => tams.forEach(t => { tots[t] += (l.tamanhos[t]||0); totGeral += (l.tamanhos[t]||0); }));
 
   const dataFmt = new Date(d.data).toLocaleDateString('pt-BR');
 
-  let linhas = d.linhas.map((l, i) => {
+  // Define título do documento para nome do PDF
+  document.title = `Ordem de Corte ${d.numero_pedido} — Pele de Atleta`;
+
+  let linhas = linhasOrdenadas.map((l, i) => {
     const tot = tams.reduce((s,t) => s+(l.tamanhos[t]||0), 0);
     return `<tr style="background:${i%2===0?'white':'#f8f9fa'}">
       <td>${l.referencia}</td>
@@ -163,7 +210,7 @@ function gerarDoc(d, centro) {
         <td class="tot-geral">${totGeral}</td>
       </tr></tfoot>
     </table>
-    <div class="rodape">Documento gerado em ${new Date().toLocaleDateString('pt-BR')} · Pele de Atleta Vestuário Esportivo e Profissional · Uso interno — Centro de Produção: Corte PA</div>
+    <div class="rodape">Documento gerado em ${new Date().toLocaleDateString('pt-BR')} · Pele de Atleta Vestuário Esportivo e Profissional · Uso interno — Centro de Produção: ${centro}</div>
   `;
 
   document.getElementById('tela-busca').style.display = 'none';

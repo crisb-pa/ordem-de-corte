@@ -62,7 +62,8 @@
     <div class="sub">Vestuário Esportivo e Profissional</div>
     <h2>Gerar Ordem de Corte</h2>
     <input type="text" id="input-pedido" placeholder="Ex: S202604-028" onkeypress="if(event.key==='Enter') buscar()" />
-    <button id="btn" onclick="buscar()">Buscar Pedido</button>
+    <input type="text" id="input-centro" placeholder="Centro de Produção (ex: PA)" style="width:100%;padding:11px 14px;border:2px solid #ddd;border-radius:8px;font-size:14px;outline:none;text-transform:uppercase;margin-top:8px;box-sizing:border-box;" value="PA" /> 
+   <button id="btn" onclick="buscar()">Buscar Pedido</button>
     <div class="erro" id="erro"></div>
   </div>
 </div>
@@ -88,6 +89,7 @@ function voltar() {
 
 async function buscar() {
   const pedido = document.getElementById('input-pedido').value.trim().toUpperCase();
+  const centro = 'Corte ' + document.getElementById('input-centro').value.trim().toUpperCase();
   if (!pedido) return;
   const btn = document.getElementById('btn');
   const erro = document.getElementById('erro');
@@ -100,7 +102,7 @@ async function buscar() {
     const data = await res.json();
     const d = Array.isArray(data) ? data[0] : data;
     if (!d?.linhas?.length) throw new Error('Pedido não encontrado');
-    gerarDoc(d);
+    gerarDoc(d,centro);
   } catch(e) {
     erro.textContent = '⚠️ ' + e.message;
   }
@@ -108,7 +110,7 @@ async function buscar() {
   btn.textContent = 'Buscar Pedido';
 }
 
-function gerarDoc(d) {
+function gerarDoc(d, centro) {
   const tamSet = new Set();
   d.linhas.forEach(l => Object.keys(l.tamanhos).forEach(t => tamSet.add(t)));
   const tams = ORDEM.filter(t => tamSet.has(t));
@@ -144,7 +146,7 @@ function gerarDoc(d) {
       <div class="doc-info">
         <span class="lbl">Nº do Pedido</span><span class="val">${d.numero_pedido}</span>
         <span class="lbl">Cliente</span><span class="val">${d.cliente}</span>
-        <span class="lbl">Centro de Produção</span><span class="val">Corte PA</span>
+        <span class="lbl">Centro de Produção</span><span class="val">${centro}</span>
         <span class="lbl">Data</span><span class="val">${dataFmt}</span>
       </div>
     </div>

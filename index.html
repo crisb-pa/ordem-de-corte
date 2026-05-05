@@ -102,7 +102,7 @@ function voltar() {
   document.getElementById('tela-busca').style.display = 'flex';
   document.getElementById('input-pedido').value = '';
   document.getElementById('erro').textContent = '';
-  document.title = 'Ordem de Corte — Pele de Atleta';
+   = 'Ordem de Corte — Pele de Atleta';
   dadosAtual = null;
 }
 
@@ -168,7 +168,7 @@ function gerarDoc(d, centro, agrupamento) {
   const dataFmt = new Date(d.data).toLocaleDateString('pt-BR');
 
   // Define título do documento para nome do PDF
-  document.title = `Ordem de Corte ${d.numero_pedido} — Pele de Atleta`;
+  document.title = `${d.numero_pedido}-Ordem de Corte-Pele de Atleta`;
 
   let linhas = linhasOrdenadas.map((l, i) => {
     const tot = tams.reduce((s,t) => s+(l.tamanhos[t]||0), 0);

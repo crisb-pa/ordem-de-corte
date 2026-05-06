@@ -7,8 +7,6 @@
 <style>
   * { margin: 0; padding: 0; box-sizing: border-box; }
   body { font-family: Arial, sans-serif; background: #f0f2f5; }
-
-  /* TELA BUSCA */
   .busca { min-height: 100vh; display: flex; align-items: center; justify-content: center; }
   .card { background: white; border-radius: 12px; padding: 40px; box-shadow: 0 4px 20px rgba(0,0,0,0.1); width: 100%; max-width: 460px; }
   .logo { font-size: 24px; font-weight: 900; color: #1a1a2e; margin-bottom: 4px; text-align: center; }
@@ -19,8 +17,6 @@
   input[type=text] { width: 100%; padding: 11px 14px; border: 2px solid #ddd; border-radius: 8px; font-size: 14px; outline: none; text-transform: uppercase; }
   input[type=text]:focus { border-color: #1a56a0; }
   input.normal { text-transform: none; }
-
-  /* CHECKBOXES ORDENS */
   .ordens-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; margin-top: 5px; }
   .ordem-check { border: 2px solid #ddd; border-radius: 8px; padding: 10px 8px; text-align: center; cursor: pointer; transition: all 0.2s; }
   .ordem-check:hover { border-color: #1a56a0; }
@@ -28,8 +24,6 @@
   .ordem-check.ativo { border-color: #1a56a0; background: #eef3fb; }
   .ordem-check .icone { font-size: 20px; display: block; margin-bottom: 4px; }
   .ordem-check .nome { font-size: 11px; font-weight: bold; color: #333; }
-
-  /* OPÇÕES DINÂMICAS */
   .opcoes-ordem { display: none; background: #f8f9fa; border-radius: 8px; padding: 14px; margin-top: 10px; border: 1px solid #e0e0e0; }
   .opcoes-ordem.visivel { display: block; }
   .opcoes-ordem .titulo { font-size: 11px; font-weight: bold; color: #1a56a0; text-transform: uppercase; margin-bottom: 10px; }
@@ -37,19 +31,14 @@
   .grupo-opcoes label { flex: 1; border: 2px solid #ddd; border-radius: 6px; padding: 7px; font-size: 12px; cursor: pointer; text-align: center; color: #555; transition: all 0.2s; }
   .grupo-opcoes input[type=radio] { display: none; }
   .grupo-opcoes input[type=radio]:checked + label { border-color: #1a56a0; background: #eef3fb; color: #1a56a0; font-weight: bold; }
-
   button.btn-gerar { width: 100%; margin-top: 18px; padding: 12px; background: #1a56a0; color: white; border: none; border-radius: 8px; font-size: 15px; font-weight: bold; cursor: pointer; }
   button.btn-gerar:disabled { background: #aaa; cursor: not-allowed; }
   .erro { color: #c0392b; font-size: 13px; margin-top: 10px; text-align: center; }
-
-  /* TELA DOCUMENTOS */
   .doc-area { display: none; background: #f0f2f5; min-height: 100vh; padding: 20px; }
   .acoes { display: flex; gap: 10px; margin-bottom: 16px; justify-content: center; flex-wrap: wrap; }
   .acoes button { padding: 8px 18px; border: none; border-radius: 6px; cursor: pointer; font-weight: bold; font-size: 14px; }
   .btn-voltar { background: #eee; color: #333; }
   .btn-imprimir { background: #1a56a0; color: white; }
-
-  /* DOCUMENTO */
   .documento { background: white; max-width: 860px; margin: 0 auto 30px auto; padding: 28px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); border-radius: 4px; }
   .doc-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 8px; }
   .doc-titulo-area { display: flex; align-items: center; gap: 12px; }
@@ -59,8 +48,6 @@
   .doc-info .lbl { color: #888; font-size: 9px; text-transform: uppercase; }
   .doc-info .val { font-weight: bold; color: #1a1a2e; }
   .divider { height: 3px; background: linear-gradient(to right, #e8380d, #1a56a0); margin: 14px 0; border-radius: 2px; }
-
-  /* TABELA */
   table { width: 100%; border-collapse: collapse; font-size: 11px; margin-bottom: 20px; }
   thead tr { background: #1a56a0; color: white; }
   thead th { padding: 8px; text-align: center; }
@@ -74,16 +61,14 @@
   tfoot td { padding: 8px; font-weight: bold; text-align: center; border-top: 2px solid #1a56a0; }
   tfoot td:first-child { text-align: left; }
   tfoot .tot-geral { color: #e8380d; font-size: 13px; }
-
-  /* ESTAMPARIA */
   .secao-titulo { font-size: 14px; font-weight: bold; color: #1a56a0; margin: 20px 0 10px 0; padding-bottom: 6px; border-bottom: 2px solid #e8380d; }
+  .tecido-info { background: #f8f9fa; border: 1px solid #e0e0e0; border-radius: 6px; padding: 10px 14px; margin-bottom: 14px; font-size: 11px; }
+  .tecido-info .lbl { color: #888; text-transform: uppercase; font-size: 9px; }
   .estampas-grid { display: flex; flex-wrap: wrap; gap: 12px; margin-bottom: 16px; }
   .estampa-img { text-align: center; }
   .estampa-img img { max-width: 200px; max-height: 200px; border: 1px solid #ddd; border-radius: 4px; object-fit: contain; }
   .estampa-img .nome-arquivo { font-size: 9px; color: #888; margin-top: 4px; }
-
   .rodape { margin-top: 20px; padding-top: 10px; border-top: 1px solid #eee; font-size: 9px; color: #aaa; text-align: center; }
-
   @media print {
     body { background: white; }
     .busca, .acoes { display: none !important; }
@@ -95,16 +80,13 @@
 </head>
 <body>
 
-<!-- TELA BUSCA -->
 <div class="busca" id="tela-busca">
   <div class="card">
     <div class="logo">PELE DE <span>ATLETA</span></div>
     <div class="sub">Vestuário Esportivo e Profissional</div>
     <h2>Gerar Ordens de Produção</h2>
-
     <div class="field-label">Nº do Pedido</div>
     <input type="text" id="input-pedido" placeholder="Ex: S202604-028" onkeypress="if(event.key==='Enter') gerar()" />
-
     <div class="field-label">Ordens a Gerar</div>
     <div class="ordens-grid">
       <div class="ordem-check" id="check-corte" onclick="toggleOrdem('corte')">
@@ -123,8 +105,6 @@
         <span class="nome">Costura</span>
       </div>
     </div>
-
-    <!-- Opções Corte -->
     <div class="opcoes-ordem" id="opcoes-corte">
       <div class="titulo">✂️ Ordem de Corte</div>
       <div class="field-label">Centro de Produção</div>
@@ -137,41 +117,35 @@
         <label for="agrup-modelo">👕 Modelo</label>
       </div>
     </div>
-
-    <!-- Opções Estamparia -->
     <div class="opcoes-ordem" id="opcoes-estamparia">
       <div class="titulo">🎨 Ordem de Estamparia</div>
       <div class="field-label">Centro de Produção</div>
       <input type="text" class="normal" id="centro-estamparia" placeholder="Ex: Estamparia" value="Estamparia" />
     </div>
-
-    <!-- Opções Costura -->
     <div class="opcoes-ordem" id="opcoes-costura">
       <div class="titulo">🧵 Ordem de Costura</div>
       <div class="field-label">Centro de Produção</div>
       <input type="text" class="normal" id="centro-costura" placeholder="Ex: Costura" value="Costura" />
     </div>
-
     <button class="btn-gerar" id="btn" onclick="gerar()">Gerar Ordens</button>
     <div class="erro" id="erro"></div>
   </div>
 </div>
 
-<!-- TELA DOCUMENTOS -->
 <div class="doc-area" id="tela-doc">
   <div class="acoes">
     <button class="btn-voltar" onclick="voltar()">← Nova Busca</button>
-    <button class="btn-imprimir" onclick="imprimir()">🖨️ Imprimir / PDF</button>
+    <button class="btn-imprimir" onclick="window.print()">🖨️ Imprimir / PDF</button>
   </div>
   <div id="documentos"></div>
 </div>
 
 <script>
-const WEBHOOK = 'https://pele-de-atleta.app.n8n.cloud/webhook/d31088f1-e974-4009-ac8c-9ad1681227cc';
-const ORDEM_TAM = ['1','2','4','6','8','10','12','14','PP','P','M','G','GG','XGG','EXGG','ESPECIAL'];
-const LOGO_URL = 'https://raw.githubusercontent.com/crisb-pa/ordem-de-corte/main/PA_logo.jpg';
+var WEBHOOK = 'https://pele-de-atleta.app.n8n.cloud/webhook/d31088f1-e974-4009-ac8c-9ad1681227cc';
+var LOGO_URL = 'https://raw.githubusercontent.com/crisb-pa/ordem-de-corte/main/PA_logo.jpg';
+var ORDEM_TAM = ['1','2','4','6','8','10','12','14','PP','P','M','G','GG','XGG','EXGG','ESPECIAL'];
 
-const TECIDOS = {
+var TECIDOS = {
   '101': { nome: 'Malha 30.1 King Branco', composicao: '100% algodão' },
   '102': { nome: 'Malha Penteada Premium', composicao: '100% algodão' },
   '111': { nome: 'Malha Poliamida Micro Solutio', composicao: '100% poliamida' },
@@ -186,10 +160,10 @@ const TECIDOS = {
   '124': { nome: 'Malha Poliéster Dry SG Premium', composicao: '100% poliéster' },
   '125': { nome: 'Malha Poliéster Helanca Light', composicao: '100% poliéster' },
   '131': { nome: 'Malha Viscolycra', composicao: '96% viscose 4% elastano' },
-  '132': { nome: 'Malha Flamê', composicao: '96% viscose 4% elastano' },
+  '132': { nome: 'Malha Flamê', composicao: '96% viscose 4% elastano' }
 };
 
-const ordensSelecionadas = { corte: false, estamparia: false, costura: false };
+var ordensSelecionadas = { corte: false, estamparia: false, costura: false };
 
 function toggleOrdem(tipo) {
   ordensSelecionadas[tipo] = !ordensSelecionadas[tipo];
@@ -204,52 +178,43 @@ function voltar() {
   document.title = 'Ordens de Produção — Pele de Atleta';
 }
 
-function imprimir() { window.print(); }
-
 async function gerar() {
-  const pedido = document.getElementById('input-pedido').value.trim().toUpperCase();
+  var pedido = document.getElementById('input-pedido').value.trim().toUpperCase();
   if (!pedido) { document.getElementById('erro').textContent = '⚠️ Informe o número do pedido'; return; }
   if (!ordensSelecionadas.corte && !ordensSelecionadas.estamparia && !ordensSelecionadas.costura) {
     document.getElementById('erro').textContent = '⚠️ Selecione pelo menos uma ordem'; return;
   }
-
-  const btn = document.getElementById('btn');
-  const erro = document.getElementById('erro');
+  var btn = document.getElementById('btn');
+  var erro = document.getElementById('erro');
   btn.disabled = true;
   btn.textContent = 'Buscando...';
   erro.textContent = '';
-
   try {
-    const res = await fetch(`${WEBHOOK}?pedido=${encodeURIComponent(pedido)}`);
+    var res = await fetch(WEBHOOK + '?pedido=' + encodeURIComponent(pedido));
     if (!res.ok) throw new Error('Erro na requisição: ' + res.status);
-    const data = await res.json();
+    var data = await res.json();
     if (!Array.isArray(data) || !data.length) throw new Error('Pedido não encontrado');
-
-    const corte = data.find(d => d.tipo === 'corte');
-    const estamparia = data.find(d => d.tipo === 'estamparia');
-    const costura = data.find(d => d.tipo === 'costura');
-
-    document.title = `${pedido}-Ordens de Produção-Pele de Atleta`;
-
-    let html = '';
+    var corte = data.find(function(d) { return d.tipo === 'corte'; });
+    var estamparia = data.find(function(d) { return d.tipo === 'estamparia'; });
+    var costura = data.find(function(d) { return d.tipo === 'costura'; });
+    document.title = pedido + '-Ordens de Produção-Pele de Atleta';
+    var html = '';
     if (ordensSelecionadas.corte && corte) {
-      const agrup = document.querySelector('input[name="agrup-corte"]:checked').value;
-      const centro = 'Corte ' + document.getElementById('centro-corte').value.trim().toUpperCase();
+      var agrup = document.querySelector('input[name="agrup-corte"]:checked').value;
+      var centro = 'Corte ' + document.getElementById('centro-corte').value.trim().toUpperCase();
       html += gerarDocCorte(corte, centro, agrup);
     }
     if (ordensSelecionadas.estamparia && estamparia) {
-      const centro = 'Estamparia ' + document.getElementById('centro-estamparia').value.trim().toUpperCase();
-      html += gerarDocEstamparia(estamparia, centro);
+      var centroE = 'Estamparia ' + document.getElementById('centro-estamparia').value.trim().toUpperCase();
+      html += gerarDocEstamparia(estamparia, centroE);
     }
     if (ordensSelecionadas.costura && costura) {
-      const centro = 'Costura ' + document.getElementById('centro-costura').value.trim().toUpperCase();
-      html += gerarDocCostura(costura, centro);
+      var centroC = 'Costura ' + document.getElementById('centro-costura').value.trim().toUpperCase();
+      html += gerarDocCostura(costura, centroC);
     }
-
     document.getElementById('documentos').innerHTML = html;
     document.getElementById('tela-busca').style.display = 'none';
     document.getElementById('tela-doc').style.display = 'block';
-
   } catch(e) {
     erro.textContent = '⚠️ ' + e.message;
   }
@@ -257,139 +222,114 @@ async function gerar() {
   btn.textContent = 'Gerar Ordens';
 }
 
-function cabecalho(titulo, d, centro) {
-  const dataFmt = new Date(d.data).toLocaleDateString('pt-BR');
-  return `
-    <div class="doc-header">
-      <div class="doc-titulo-area">
-        <img src="${LOGO_URL}" alt="Pele de Atleta" style="width:54px;height:54px;object-fit:contain;border-radius:6px;" />
-        <div>
-          <div class="doc-titulo">${titulo}</div>
-          <div class="doc-empresa">Pele de Atleta Vestuário Esportivo e Profissional</div>
-        </div>
-      </div>
-      <div class="doc-info">
-        <span class="lbl">Nº do Pedido</span><span class="val">${d.numero_pedido}</span>
-        <span class="lbl">Cliente</span><span class="val">${d.cliente}</span>
-        <span class="lbl">Centro de Produção</span><span class="val">${centro}</span>
-        <span class="lbl">Data</span><span class="val">${dataFmt}</span>
-      </div>
-    </div>
-    <div class="divider"></div>`;
-}
-
-function tabelaHTML(linhas, tams) {
-  const tots = {};
-  tams.forEach(t => tots[t] = 0);
-  let totGeral = 0;
-  linhas.forEach(l => tams.forEach(t => { tots[t] += (l.tamanhos[t]||0); totGeral += (l.tamanhos[t]||0); }));
-
-  const rows = linhas.map((l, i) => {
-    const tot = tams.reduce((s,t) => s+(l.tamanhos[t]||0), 0);
-    return `<tr style="background:${i%2===0?'white':'#f8f9fa'}">
-      <td>${l.referencia}</td>
-      <td>${l.modelo}</td>
-      <td>${l.cor ? l.cor.charAt(0).toUpperCase()+l.cor.slice(1) : '—'}</td>
-      ${tams.map(t => `<td>${l.tamanhos[t]||''}</td>`).join('')}
-      <td class="tot-linha">${tot}</td>
-    </tr>`;
-  }).join('');
-
-  return `<table>
-    <thead><tr>
-      <th>REFERÊNCIA</th><th>MODELO / REFERÊNCIA</th><th>COR</th>
-      ${tams.map(t=>`<th>${t}</th>`).join('')}<th>TOTAL</th>
-    </tr></thead>
-    <tbody>${rows}</tbody>
-    <tfoot><tr>
-      <td colspan="3">TOTAL GERAL</td>
-      ${tams.map(t=>`<td>${tots[t]||''}</td>`).join('')}
-      <td class="tot-geral">${totGeral}</td>
-    </tr></tfoot>
-  </table>`;
+function getTecido(produtos) {
+  for (var i = 0; i < produtos.length; i++) {
+    var partes = produtos[i].referencia.split('-');
+    if (partes.length >= 2) {
+      var cod = partes[1];
+      if (TECIDOS[cod]) return { cod: cod, nome: TECIDOS[cod].nome, composicao: TECIDOS[cod].composicao };
+    }
+  }
+  return null;
 }
 
 function getTams(linhas) {
-  const tamSet = new Set();
-  linhas.forEach(l => Object.keys(l.tamanhos).forEach(t => tamSet.add(t)));
-  const tams = ORDEM_TAM.filter(t => tamSet.has(t));
-  tamSet.forEach(t => { if (!tams.includes(t)) tams.push(t); });
+  var tamSet = {};
+  linhas.forEach(function(l) { Object.keys(l.tamanhos).forEach(function(t) { tamSet[t] = true; }); });
+  var tams = ORDEM_TAM.filter(function(t) { return tamSet[t]; });
+  Object.keys(tamSet).forEach(function(t) { if (tams.indexOf(t) < 0) tams.push(t); });
   return tams;
 }
 
 function ordenarLinhas(linhas, agrup) {
-  return [...linhas].sort((a, b) => {
-    const [p1, s1] = agrup === 'cor' ? [a.cor, a.referencia] : [a.referencia, a.cor];
-    const [p2, s2] = agrup === 'cor' ? [b.cor, b.referencia] : [b.referencia, b.cor];
+  return linhas.slice().sort(function(a, b) {
+    var p1 = agrup === 'cor' ? a.cor : a.referencia;
+    var p2 = agrup === 'cor' ? b.cor : b.referencia;
+    var s1 = agrup === 'cor' ? a.referencia : a.cor;
+    var s2 = agrup === 'cor' ? b.referencia : b.cor;
     if (p1 < p2) return -1; if (p1 > p2) return 1;
     if (s1 < s2) return -1; if (s1 > s2) return 1;
     return 0;
   });
 }
 
+function tabelaHTML(linhas, tams) {
+  var tots = {};
+  tams.forEach(function(t) { tots[t] = 0; });
+  var totGeral = 0;
+  linhas.forEach(function(l) { tams.forEach(function(t) { tots[t] += (l.tamanhos[t]||0); totGeral += (l.tamanhos[t]||0); }); });
+  var rows = linhas.map(function(l, i) {
+    var tot = tams.reduce(function(s,t) { return s+(l.tamanhos[t]||0); }, 0);
+    return '<tr style="background:' + (i%2===0?'white':'#f8f9fa') + '">' +
+      '<td>' + l.referencia + '</td>' +
+      '<td>' + l.modelo + '</td>' +
+      '<td>' + (l.cor ? l.cor.charAt(0).toUpperCase()+l.cor.slice(1) : '—') + '</td>' +
+      tams.map(function(t) { return '<td>' + (l.tamanhos[t]||'') + '</td>'; }).join('') +
+      '<td class="tot-linha">' + tot + '</td></tr>';
+  }).join('');
+  return '<table><thead><tr><th>REFERÊNCIA</th><th>MODELO / REFERÊNCIA</th><th>COR</th>' +
+    tams.map(function(t) { return '<th>' + t + '</th>'; }).join('') +
+    '<th>TOTAL</th></tr></thead><tbody>' + rows + '</tbody><tfoot><tr>' +
+    '<td colspan="3">TOTAL GERAL</td>' +
+    tams.map(function(t) { return '<td>' + (tots[t]||'') + '</td>'; }).join('') +
+    '<td class="tot-geral">' + totGeral + '</td></tr></tfoot></table>';
+}
+
+function cabecalho(titulo, d, centro) {
+  var dataFmt = new Date(d.data).toLocaleDateString('pt-BR');
+  return '<div class="doc-header">' +
+    '<div class="doc-titulo-area">' +
+    '<img src="' + LOGO_URL + '" alt="Pele de Atleta" style="width:54px;height:54px;object-fit:contain;border-radius:6px;" />' +
+    '<div><div class="doc-titulo">' + titulo + '</div>' +
+    '<div class="doc-empresa">Pele de Atleta Vestuário Esportivo e Profissional</div></div></div>' +
+    '<div class="doc-info">' +
+    '<span class="lbl">Nº do Pedido</span><span class="val">' + d.numero_pedido + '</span>' +
+    '<span class="lbl">Cliente</span><span class="val">' + d.cliente + '</span>' +
+    '<span class="lbl">Centro de Produção</span><span class="val">' + centro + '</span>' +
+    '<span class="lbl">Data</span><span class="val">' + dataFmt + '</span>' +
+    '</div></div><div class="divider"></div>';
+}
+
 function rodape(centro) {
-  return `<div class="rodape">Documento gerado em ${new Date().toLocaleDateString('pt-BR')} · Pele de Atleta Vestuário Esportivo e Profissional · Uso interno — Centro de Produção: ${centro}</div>`;
+  return '<div class="rodape">Documento gerado em ' + new Date().toLocaleDateString('pt-BR') +
+    ' · Pele de Atleta Vestuário Esportivo e Profissional · Uso interno — Centro de Produção: ' + centro + '</div>';
 }
 
 function gerarDocCorte(d, centro, agrup) {
-  const linhas = ordenarLinhas(d.linhas, agrup);
-  const tams = getTams(linhas);
-  return `<div class="documento">
-    ${cabecalho('ORDEM DE CORTE', d, centro)}
-    ${tabelaHTML(linhas, tams)}
-    ${rodape(centro)}
-  </div>`;
+  var linhas = ordenarLinhas(d.linhas, agrup);
+  var tams = getTams(linhas);
+  return '<div class="documento">' + cabecalho('ORDEM DE CORTE', d, centro) + tabelaHTML(linhas, tams) + rodape(centro) + '</div>';
 }
 
 function gerarDocEstamparia(d, centro) {
-  let secoesHTML = '';
-  d.secoes.forEach(s => {
-    const tams = getTams(s.produtos);
-    const imgsHTML = s.arquivos.length ? `
-      <div class="estampas-grid">
-        ${s.arquivos.map(f => `
-          <div class="estampa-img">
-            <img src="${f.url}" alt="${f.nome}" onerror="this.style.display='none'" />
-            <div class="nome-arquivo">${f.nome}</div>
-          </div>`).join('')}
-      </div>` : '';
-
-    secoesHTML += `
-      <div class="secao-titulo">🎨 ${s.nome}</div>
-      ${tabelaHTML(s.produtos, tams)}
-      ${imgsHTML}`;
+  var secoesHTML = '';
+  d.secoes.forEach(function(s) {
+    var tams = getTams(s.produtos);
+    var tecido = getTecido(s.produtos);
+    var tecidoHTML = tecido ? '<div class="tecido-info"><span class="lbl">Tecido</span><br><strong>' +
+      tecido.cod + ' — ' + tecido.nome + '</strong><br>' +
+      '<span style="color:#555;">Composição: ' + tecido.composicao + '</span></div>' : '';
+    var imgsHTML = s.arquivos && s.arquivos.length ? '<div class="estampas-grid">' +
+      s.arquivos.map(function(f) {
+        return '<div class="estampa-img"><img src="' + f.url + '" alt="' + f.nome +
+          '" onerror="this.style.display=\'none\'" /><div class="nome-arquivo">' + f.nome + '</div></div>';
+      }).join('') + '</div>' : '';
+    secoesHTML += '<div class="secao-titulo">🎨 ' + s.nome + '</div>' + tecidoHTML + tabelaHTML(s.produtos, tams) + imgsHTML;
   });
-
-  return `<div class="documento">
-    ${cabecalho('ORDEM DE ESTAMPARIA', d, centro)}
-    ${secoesHTML}
-    ${rodape(centro)}
-  </div>`;
+  return '<div class="documento">' + cabecalho('ORDEM DE ESTAMPARIA', d, centro) + secoesHTML + rodape(centro) + '</div>';
 }
 
 function gerarDocCostura(d, centro) {
-  const tams = getTams(d.linhas);
-
-  // Imagens das estampas ao final
-  const todasEstampas = d.secoes ? d.secoes.flatMap(s => s.arquivos || []) : [];
-  const imgsHTML = todasEstampas.length ? `
-    <div style="margin-top:20px;padding-top:14px;border-top:1px solid #eee;">
-      <div style="font-size:11px;font-weight:bold;color:#1a56a0;margin-bottom:10px;">ESTAMPAS DE REFERÊNCIA</div>
-      <div class="estampas-grid">
-        ${todasEstampas.map(f => `
-          <div class="estampa-img">
-            <img src="${f.url}" alt="${f.nome}" onerror="this.style.display='none'" />
-            <div class="nome-arquivo">${f.nome}</div>
-          </div>`).join('')}
-      </div>
-    </div>` : '';
-
-  return `<div class="documento">
-    ${cabecalho('ORDEM DE COSTURA', d, centro)}
-    ${tabelaHTML(d.linhas, tams)}
-    ${imgsHTML}
-    ${rodape(centro)}
-  </div>`;
+  var tams = getTams(d.linhas);
+  var todasEstampas = d.secoes ? d.secoes.reduce(function(arr, s) { return arr.concat(s.arquivos || []); }, []) : [];
+  var imgsHTML = todasEstampas.length ? '<div style="margin-top:20px;padding-top:14px;border-top:1px solid #eee;">' +
+    '<div style="font-size:11px;font-weight:bold;color:#1a56a0;margin-bottom:10px;">ESTAMPAS DE REFERÊNCIA</div>' +
+    '<div class="estampas-grid">' +
+    todasEstampas.map(function(f) {
+      return '<div class="estampa-img"><img src="' + f.url + '" alt="' + f.nome +
+        '" onerror="this.style.display=\'none\'" /><div class="nome-arquivo">' + f.nome + '</div></div>';
+    }).join('') + '</div></div>' : '';
+  return '<div class="documento">' + cabecalho('ORDEM DE COSTURA', d, centro) + tabelaHTML(d.linhas, tams) + imgsHTML + rodape(centro) + '</div>';
 }
 </script>
 </body>

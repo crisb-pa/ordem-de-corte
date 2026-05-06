@@ -171,6 +171,24 @@ const WEBHOOK = 'https://pele-de-atleta.app.n8n.cloud/webhook/d31088f1-e974-4009
 const ORDEM_TAM = ['1','2','4','6','8','10','12','14','PP','P','M','G','GG','XGG','EXGG','ESPECIAL'];
 const LOGO_URL = 'https://raw.githubusercontent.com/crisb-pa/ordem-de-corte/main/PA_logo.jpg';
 
+const TECIDOS = {
+  '101': { nome: 'Malha 30.1 King Branco', composicao: '100% algodão' },
+  '102': { nome: 'Malha Penteada Premium', composicao: '100% algodão' },
+  '111': { nome: 'Malha Poliamida Micro Solutio', composicao: '100% poliamida' },
+  '112': { nome: 'Malha Poliamida California', composicao: '91% poliamida 9% elastano' },
+  '113': { nome: 'Malha Suplex 100% Poliamida', composicao: '100% poliamida' },
+  '114': { nome: 'Malha Poliamida Fluid Dry', composicao: '91% poliamida 9% elastano' },
+  '115': { nome: 'Malha Poliamida Montreal Light', composicao: '100% poliamida' },
+  '116': { nome: 'Malha Poliamida Fresh Light', composicao: '90% poliamida 10% elastano' },
+  '121': { nome: 'Malha PV Branca', composicao: '65% poliéster 35% viscose' },
+  '122': { nome: 'Malha PV Colorida', composicao: '65% poliéster 35% viscose' },
+  '123': { nome: 'Malha Poliéster Light Green UV 50+', composicao: '90% poliéster 10% elastano' },
+  '124': { nome: 'Malha Poliéster Dry SG Premium', composicao: '100% poliéster' },
+  '125': { nome: 'Malha Poliéster Helanca Light', composicao: '100% poliéster' },
+  '131': { nome: 'Malha Viscolycra', composicao: '96% viscose 4% elastano' },
+  '132': { nome: 'Malha Flamê', composicao: '96% viscose 4% elastano' },
+};
+
 const ordensSelecionadas = { corte: false, estamparia: false, costura: false };
 
 function toggleOrdem(tipo) {

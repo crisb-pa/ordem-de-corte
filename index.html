@@ -314,7 +314,7 @@ function gerarDocEstamparia(d, centro) {
         return '<div class="estampa-img"><img src="' + f.url + '" alt="' + f.nome +
           '" onerror="this.style.display=\'none\'" /><div class="nome-arquivo">' + f.nome + '</div></div>';
       }).join('') + '</div>' : '';
-    secoesHTML += '<div class="secao-titulo">🎨 ' + s.nome + '</div>' + tecidoHTML + tabelaHTML(s.produtos, tams) + imgsHTML;
+    secoesHTML += tecidoHTML + tabelaHTML(s.produtos, tams) + imgsHTML;
   });
   return '<div class="documento">' + cabecalho('ORDEM DE ESTAMPARIA', d, centro) + secoesHTML + rodape(centro) + '</div>';
 }

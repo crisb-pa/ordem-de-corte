@@ -100,9 +100,9 @@
     .documento { box-shadow: none; max-width: 100%; page-break-after: always; }
     .documento:last-child { page-break-after: avoid; }
 
-    /* Imagens dobram de tamanho no PDF */
+    /* Imagens em tamanho dominante no PDF (1 por página em A4) */
     .estampa-img img {
-      height: 400px;
+      height: 700px;
       width: auto;
       max-width: 100%;
       object-fit: contain;

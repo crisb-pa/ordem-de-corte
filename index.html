@@ -308,7 +308,7 @@ function tabelaHTML(linhas, tams) {
 }
 
 function cabecalho(titulo, d, centro) {
-  var dataFmt = new Date(d.data).toLocaleDateString('pt-BR');
+  var dataFmt = new Date().toLocaleDateString('pt-BR');
   return '<div class="doc-header">' +
     '<div class="doc-titulo-area">' +
     '<img src="' + LOGO_URL + '" alt="Pele de Atleta" style="width:54px;height:54px;object-fit:contain;border-radius:6px;" />' +

@@ -91,6 +91,9 @@
 
   .rodape { margin-top: 20px; padding-top: 10px; border-top: 1px solid #eee; font-size: 9px; color: #aaa; text-align: center; }
 
+  /* === BLOCO SEÇÃO (tabela + imagem juntos) === */
+  .secao-bloco { margin-bottom: 24px; }
+
   /* === IMPRESSÃO (retrato, sem landscape) === */
   @media print {
     body { background: white; }
@@ -99,7 +102,20 @@
     .documento { box-shadow: none; max-width: 100%; page-break-after: always; }
     .documento:last-child { page-break-after: avoid; }
 
-    /* Imagem com 380px — cabe junto com tabelas médias em retrato */
+    /* Cada seção (tecido-info + tabela + imagens) sempre começa numa página nova */
+    .secao-bloco {
+      break-before: always;
+      page-break-before: always;
+      break-inside: avoid;
+      page-break-inside: avoid;
+    }
+    /* Primeira seção não precisa de quebra antes — já está logo após o cabeçalho */
+    .secao-bloco:first-of-type {
+      break-before: avoid;
+      page-break-before: avoid;
+    }
+
+    /* Imagem com 380px */
     .estampa-img img {
       height: 380px;
       width: auto;
@@ -107,15 +123,13 @@
       object-fit: contain;
     }
 
-    /* Evita que a grade de estampas quebre de página sozinha */
+    /* Grade de estampas: nunca quebra internamente */
     .estampas-grid {
       break-inside: avoid;
       page-break-inside: avoid;
-      break-before: avoid;
-      page-break-before: avoid;
     }
 
-    /* Mantém cada bloco de estampa (imagem + nome) junto */
+    /* Cada item de estampa (imagem + nome) fica junto */
     .estampa-img {
       break-inside: avoid;
       page-break-inside: avoid;
@@ -360,7 +374,9 @@ function gerarDocEstamparia(d, centro) {
         return '<div class="estampa-img"><img src="' + f.url + '" alt="' + f.nome +
           '" onerror="this.style.display=\'none\'" /><div class="nome-arquivo">' + f.nome + '</div></div>';
       }).join('') + '</div>' : '';
-    secoesHTML += tecidoHTML + tabelaHTML(s.produtos, tams) + imgsHTML;
+    /* Cada seção (tecido + tabela + imagens) num bloco independente.
+       Na impressão, .secao-bloco força nova página (exceto o primeiro). */
+    secoesHTML += '<div class="secao-bloco">' + tecidoHTML + tabelaHTML(s.produtos, tams) + imgsHTML + '</div>';
   });
   return '<div class="documento">' + cabecalho('ORDEM DE ESTAMPARIA', d, centro) + secoesHTML + rodape(centro) + '</div>';
 }

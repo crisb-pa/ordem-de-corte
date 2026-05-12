@@ -102,15 +102,17 @@
     .documento { box-shadow: none; max-width: 100%; page-break-after: always; }
     .documento:last-child { page-break-after: avoid; }
 
-    /* Cada seção (tecido-info + tabela + imagens) sempre começa numa página nova */
+    /* Cada seção sempre começa numa página nova (exceto a primeira) */
     .secao-bloco {
       break-before: always;
       page-break-before: always;
-      break-inside: avoid;
-      page-break-inside: avoid;
     }
-    /* Primeira seção não precisa de quebra antes — já está logo após o cabeçalho */
     .secao-bloco:first-of-type {
+      break-before: avoid;
+      page-break-before: avoid;
+    }
+    /* Tabela + imagens nunca quebram separadas entre si dentro da seção */
+    .estampas-grid {
       break-before: avoid;
       page-break-before: avoid;
     }
@@ -121,12 +123,6 @@
       width: auto;
       max-width: 100%;
       object-fit: contain;
-    }
-
-    /* Grade de estampas: nunca quebra internamente */
-    .estampas-grid {
-      break-inside: avoid;
-      page-break-inside: avoid;
     }
 
     /* Cada item de estampa (imagem + nome) fica junto */
@@ -374,11 +370,14 @@ function gerarDocEstamparia(d, centro) {
         return '<div class="estampa-img"><img src="' + f.url + '" alt="' + f.nome +
           '" onerror="this.style.display=\'none\'" /><div class="nome-arquivo">' + f.nome + '</div></div>';
       }).join('') + '</div>' : '';
-    /* Cada seção (tecido + tabela + imagens) num bloco independente.
-       Na impressão, .secao-bloco força nova página (exceto o primeiro). */
-    secoesHTML += '<div class="secao-bloco">' + tecidoHTML + tabelaHTML(s.produtos, tams) + imgsHTML + '</div>';
+    /* Cada seção tem cabeçalho e rodapé próprios — garante que apareçam em todas as páginas impressas */
+    secoesHTML += '<div class="secao-bloco">' +
+      cabecalho('ORDEM DE ESTAMPARIA', d, centro) +
+      tecidoHTML + tabelaHTML(s.produtos, tams) + imgsHTML +
+      rodape(centro) +
+      '</div>';
   });
-  return '<div class="documento">' + cabecalho('ORDEM DE ESTAMPARIA', d, centro) + secoesHTML + rodape(centro) + '</div>';
+  return '<div class="documento">' + secoesHTML + '</div>';
 }
 
 function gerarDocCostura(d, centro) {

@@ -65,10 +65,7 @@
   .tecido-info { background: #eef3fb; border: 1px solid #c5d8f0; border-top: none; border-radius: 0 0 4px 4px; padding: 6px 10px; margin-bottom: 14px; font-size: 10px; color: #333; }
   .tecido-info .lbl { color: #888; text-transform: uppercase; font-size: 9px; }
 
-  /* === IMAGENS DAS ESTAMPAS ===
-     Tela:     altura fixa de 200px (conferência rápida, várias lado a lado)
-     Impressão: altura fixa de 400px (dobro, melhor leitura no PDF)
-     width:auto + object-fit:contain => preserva proporção, sem cortar */
+  /* === IMAGENS DAS ESTAMPAS (tela) === */
   .estampas-grid {
     display: flex;
     flex-wrap: wrap;
@@ -93,6 +90,8 @@
   .estampa-img .nome-arquivo { font-size: 9px; color: #888; margin-top: 4px; }
 
   .rodape { margin-top: 20px; padding-top: 10px; border-top: 1px solid #eee; font-size: 9px; color: #aaa; text-align: center; }
+
+  /* === IMPRESSÃO (retrato, sem landscape) === */
   @media print {
     body { background: white; }
     .busca, .acoes { display: none !important; }
@@ -100,12 +99,26 @@
     .documento { box-shadow: none; max-width: 100%; page-break-after: always; }
     .documento:last-child { page-break-after: avoid; }
 
-    /* Imagens em tamanho dominante no PDF (1 por página em A4) */
+    /* Imagem com 380px — cabe junto com tabelas médias em retrato */
     .estampa-img img {
-      height: 700px;
+      height: 380px;
       width: auto;
       max-width: 100%;
       object-fit: contain;
+    }
+
+    /* Evita que a grade de estampas quebre de página sozinha */
+    .estampas-grid {
+      break-inside: avoid;
+      page-break-inside: avoid;
+      break-before: avoid;
+      page-break-before: avoid;
+    }
+
+    /* Mantém cada bloco de estampa (imagem + nome) junto */
+    .estampa-img {
+      break-inside: avoid;
+      page-break-inside: avoid;
     }
   }
 </style>
